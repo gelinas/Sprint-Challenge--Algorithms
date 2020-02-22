@@ -2,10 +2,12 @@
 
 ## Exercise I
 
-a) Quadratic runtime. single loop, but the cap of that loop is exponentially related to input size. runtime is O of n to the power of some constant (3 in this case). This is quadratic runtime.
+a) Constant runtime (O c n). 
+
+Rationale: single loop, and it seems like the cap of that loop is exponentially related to input size (power of 3). However, since the breaking condition is also increasing exponential (power of 2) it goes back to constant runtime.
 
 
-b) Quadratic runtime. double loop, as input increases you repeat the subloop over the same stuff. This is literally the bubblesort algo pattern. Must also be input size of O of n to the power of 2. Also quadratic runtime.
+b) Linear log runtime. It's double loop, but as input increases you repeat the subloop over a smaller set of data.
 
 
 c) Constant runtime. Recursion, but the recursion formula obfuscates that this is just adding the number 2 over and over. The number of additions of 2 (operations) is directly proportional to the input size, so this is constant time.
