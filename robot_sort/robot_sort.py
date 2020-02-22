@@ -92,45 +92,102 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+
+# Understand: sort by pick up, traverse, compare, swap
+
+# Plan: Most basically maps on to a selection sort, except we can't use variables (store smallest index in  memory while looping)
+
+# Plan v2: bubble sort. Can knock it out by moving left and right.
+
+# Plan v3: some kind of recursive sort like quicksort or mergesort. Would run faster, but take more sophisticated tinkering of the very basic capabilities.
+
+# Plan v2 detailed breakdown: bubble sort.
+
+# use "self._position" as your bubble sort cursor
+# use "self._light_is_on" as your swap flag
+
+# failed bubble sort
+    # def sort(self):
+        """
+        Sort the robot's list.
+        """
+        # self.swap_item()
+        # self.move_right()
+        # for i in range(0, len(self._list) - 1):
+        #     print(self._item)
+        #     print(self.compare_item())
+        #     if self.compare_item() == 1:
+        #         self.swap_item()
+        #         self.set_light_on()
+        #         self.move_right()
+        #         print("swap")
+        #     else:
+        #         self.move_right()
+        #         print("move")
+        #     print("done")
+
+        # if self.can_move_right() == False:
+        #     if self.light_is_on() == False:
+        #         return
+        #     else:
+        #         while self.can_move_left() == True:
+        #             self.move_left()
+        #         self.swap_item()
+        # self.set_light_off()
+
+# OVERTIME effort: selection sort
+
+# pick up first item
+# go down the list and swap with smallest
+# when can_move_right is false,
+# move_left back until you find None, then drop the smallest item
+# move right one, pick up the item, repeat.
+# break when all items sorted
+
     def sort(self):
         """
         Sort the robot's list.
         """
-        # Fill this out
-        # Understand: sort by pick up, traverse, compare, swap
-        # Plan: Most basically maps on to a selection sort, except we can't use variables (store smallest index in  memory while looping)
-        # Plan v2: bubble sort. Can knock it out by moving left and right.
-        # Plan v3: some kind of recursive sort like quicksort or mergesort. Would run faster, but take more sophisticated tinkering of the very basic capabilities.
-        # Plan v2 detailed breakdown: bubble sort.
-
-        # use "self._position" as your bubble sort cursor
-        # use "self._light_is_on" as your swap flag
-
-        # while True:
+        # pick up first item at position zero
         self.swap_item()
-        self.move_right()
-        for i in range(0, len(self._list) - 1):
-            print(self._item)
-            print(self.compare_item())
-            if self.compare_item() == 1:
-                self.swap_item()
-                self.set_light_on()
-                self.move_right()
-                print("swap")
-            else:
-                self.move_right()
-                print("move")
-            print("done")
 
-        if self.can_move_right() == False:
-            if self.light_is_on() == False:
-                return
+        # loop until the robot turns the light on to indicate array is sorted
+        while self.light_is_on() == False:
+
+            # traverse right, picking up smaller items as you go
+            while self.can_move_right() == True:
+                self.move_right()
+                # print("right" + str(self._position))
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    # print("move right swap")
+                    # print(self._item)
+                    # print(self._list)
+            
+            # when you reach end of the line (and thus have smallest item), head back left
+            # robot will drop the smallest item at the place where it left "None"
             else:
-                while self.can_move_left() == True:
+                # head left and pick up None when you find it
+                while self._item != None:
                     self.move_left()
-                self.swap_item()
-        self.set_light_off()
-
+                    # print("left" + str(self._position))
+                    if self.compare_item() == None:
+                        # put item in place
+                        self.swap_item()
+                        # print("move left drop")
+                # after you pick up None, move one right and drop it
+                # if you can't move one right, it's because your done, congratulations!
+                else:
+                    self.move_right()
+                    # if end of array (all sorted), turn light on to end loop
+                    if self.can_move_right() == False:
+                        self.set_light_on()
+                    else:
+                        # drop None, get new item
+                        self.swap_item()
+                        # print("new item: " + str(self._item))
+                # print(self._item)
+                # print(self._list)       
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
