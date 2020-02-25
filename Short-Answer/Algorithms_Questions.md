@@ -12,6 +12,11 @@ a)  a = 0
 ```
 
 
+first pass: single loop, input size is O of n to the power of some constant
+second pass: This is obfuscation. 
+while a < n^3 (affects runtime, number of loops) **
+a equals a + n^2 (does not affect runtime, it's the same operation no matter what)
+
 ```
 b)  sum = 0
     for i in range(n):
@@ -20,6 +25,7 @@ b)  sum = 0
         j *= 2
         sum += 1
 ```
+double loop, as input increases you repeat the subloop over the same stuff. This is literally the bubblesort algo pattern. Must also be input size of O of n to the power of 2.
 
 ```
 c)  def bunnyEars(bunnies):
@@ -28,6 +34,7 @@ c)  def bunnyEars(bunnies):
 
       return 2 + bunnyEars(bunnies-1)
 ```
+Recursion, but it obfuscates that this is just adding the number 2 over and over. The number of additions of 2 (operations) is directly proportional to the input size, so this is constant time.
 
 ## Exercise II
 

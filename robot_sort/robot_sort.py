@@ -97,7 +97,39 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        # Understand: sort by pick up, traverse, compare, swap
+        # Plan: Most basically maps on to a selection sort, except we can't use variables (store smallest index in  memory while looping)
+        # Plan v2: bubble sort. Can knock it out by moving left and right.
+        # Plan v3: some kind of recursive sort like quicksort or mergesort. Would run faster, but take more sophisticated tinkering of the very basic capabilities.
+        # Plan v2 detailed breakdown: bubble sort.
+
+        # use "self._position" as your bubble sort cursor
+        # use "self._light_is_on" as your swap flag
+
+        # while True:
+        self.swap_item()
+        self.move_right()
+        for i in range(0, len(self._list) - 1):
+            print(self._item)
+            print(self.compare_item())
+            if self.compare_item() == 1:
+                self.swap_item()
+                self.set_light_on()
+                self.move_right()
+                print("swap")
+            else:
+                self.move_right()
+                print("move")
+            print("done")
+
+        if self.can_move_right() == False:
+            if self.light_is_on() == False:
+                return
+            else:
+                while self.can_move_left() == True:
+                    self.move_left()
+                self.swap_item()
+        self.set_light_off()
 
 
 if __name__ == "__main__":
